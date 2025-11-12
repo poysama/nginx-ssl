@@ -1,0 +1,7 @@
+services:
+  nginx-http2-proxy:
+    build: .
+    ports:
+      - "9081:9081"
+    container_name: tr-funding-http2-simulator
+    restart: unless-stopped
