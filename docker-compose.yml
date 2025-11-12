@@ -1,7 +1,23 @@
+
 services:
-  nginx-http2-proxy:
-    build: .
+  # tr-funding HTTP/2 proxy (simulates tr-funding-dev with HTTP/2)
+  tr-funding-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.tr-funding
     ports:
       - "9081:9081"
     container_name: tr-funding-http2-simulator
+    restart: unless-stopped
+
+  # bos nginx proxy (simulates bos-dev Beanstalk nginx that fails)
+  bos-nginx-proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile.bos-nginx
+    ports:
+      - "9080:9080"
+    depends_on:
+      - tr-funding-proxy
+    container_name: bos-nginx-proxy
     restart: unless-stopped

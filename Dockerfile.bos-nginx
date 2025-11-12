@@ -1,0 +1,9 @@
+FROM nginx:alpine
+
+# Copy nginx configuration for bos proxy (that will fail with HTTP/2)
+COPY bos-nginx.conf /etc/nginx/nginx.conf
+
+# Expose HTTP port
+EXPOSE 9080
+
+CMD ["nginx", "-g", "daemon off;"]
